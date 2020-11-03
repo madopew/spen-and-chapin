@@ -6,7 +6,7 @@ fun findExp(a : Double) : Double {
     var n : Int = 1
     x = a
     y = 1.0
-    var t = x - y;
+    var t = x - y
     t += 5
     det = 1.0
     do {
