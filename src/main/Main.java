@@ -1,10 +1,11 @@
 package main;
 
-import lexer.Lexer;
+import spen.SpenMetrics;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,7 +21,8 @@ public class Main {
             System.err.println("File error");
         }
 
-        Lexer l = new Lexer(sb.toString());
-
+        SpenMetrics s = new SpenMetrics(sb.toString());
+        Map<String, Integer> spens = s.getSpens();
+        spens.forEach((key, value) -> System.out.printf("(%s; %d)\n", key, value));
     }
 }
