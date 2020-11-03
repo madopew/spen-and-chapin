@@ -33,7 +33,12 @@ public class Lexer {
 
     private void readNext() {
         char ch = inputStream[currentIndex];
-        if(ch == ' ' || ch == '\n' || ch == '\t') {
+        if(ch == ' ' || ch == '\t') {
+            return;
+        }
+        if (ch == '\n' || ch == '\r' || ch == ';') {
+            Token t = new Token(Type.DELIM, ch + "");
+            tokens.add(t);
             return;
         }
         if(ch == '/' && (inputStream[currentIndex+1] == '/' || inputStream[currentIndex+1] == '*')) {
@@ -56,7 +61,7 @@ public class Lexer {
             readIdentificator();
             return;
         }
-        if(";,(){}[]".indexOf(ch) >= 0) {
+        if(",(){}[]".indexOf(ch) >= 0) {
             Token t = new Token(Type.PUNC, ch + "");
             tokens.add(t);
             return;

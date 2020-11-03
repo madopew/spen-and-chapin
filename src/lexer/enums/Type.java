@@ -8,5 +8,6 @@ public enum Type {
     HKW, //for while final
     SKW,
     OP, //+ ++ %=
-    VAR //myAmount, var
+    VAR, //myAmount, var
+    DELIM //; \r \n
 }
