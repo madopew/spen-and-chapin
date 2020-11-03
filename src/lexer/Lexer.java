@@ -5,17 +5,17 @@ import lexer.enums.Type;
 import java.util.ArrayList;
 
 public class Lexer {
-    private final ArrayList<Token> tokens;
+    private final ArrayList<Lexeme> lexemes;
     private final char[] inputStream;
     private int currentIndex = 0;
     public Lexer(String unParsedText) {
-        tokens = new ArrayList<>();
+        lexemes = new ArrayList<>();
         this.inputStream = unParsedText.toCharArray();
         parse();
     }
 
-    public ArrayList<Token> getTokens() {
-        return tokens;
+    public ArrayList<Lexeme> getLexemes() {
+        return lexemes;
     }
 
     private void parse() {
@@ -27,7 +27,7 @@ public class Lexer {
 
     public String toString() {
         StringBuilder toReturn = new StringBuilder();
-        for (Token token : tokens) toReturn.append(token.toString()).append("\n");
+        for (Lexeme lexeme : lexemes) toReturn.append(lexeme.toString()).append("\n");
         return toReturn.toString();
     }
 
@@ -37,8 +37,8 @@ public class Lexer {
             return;
         }
         if (ch == '\n' || ch == '\r' || ch == ';') {
-            Token t = new Token(Type.DELIM, ch + "");
-            tokens.add(t);
+            Lexeme t = new Lexeme(Type.DELIM, ch + "");
+            lexemes.add(t);
             return;
         }
         if(ch == '/' && (inputStream[currentIndex+1] == '/' || inputStream[currentIndex+1] == '*')) {
@@ -62,8 +62,8 @@ public class Lexer {
             return;
         }
         if(",(){}[]".indexOf(ch) >= 0) {
-            Token t = new Token(Type.PUNC, ch + "");
-            tokens.add(t);
+            Lexeme t = new Lexeme(Type.PUNC, ch + "");
+            lexemes.add(t);
             return;
         }
         if(isOp(ch)) {
@@ -99,7 +99,7 @@ public class Lexer {
                 lexeme.append(inputStream[currentIndex++]);
             }
             lexeme.append("\"");
-            tokens.add(new Token(Type.STR, lexeme.toString()));
+            lexemes.add(new Lexeme(Type.STR, lexeme.toString()));
         }
     }
 
@@ -119,7 +119,7 @@ public class Lexer {
         }
         lexeme.append("\"");
         currentIndex += 2;
-        tokens.add(new Token(Type.STR, lexeme.toString()));
+        lexemes.add(new Lexeme(Type.STR, lexeme.toString()));
     }
 
     private void readChar() {
@@ -131,7 +131,7 @@ public class Lexer {
             lexeme.append(inputStream[currentIndex++]);
         }
         lexeme.append("'");
-        tokens.add(new Token(Type.CHAR, lexeme.toString()));
+        lexemes.add(new Lexeme(Type.CHAR, lexeme.toString()));
     }
 
     private void readNumber() {
@@ -143,7 +143,7 @@ public class Lexer {
             lexeme.append(inputStream[currentIndex++]);
         }
         currentIndex--;
-        tokens.add(new Token(Type.NUM, lexeme.toString()));
+        lexemes.add(new Lexeme(Type.NUM, lexeme.toString()));
     }
 
     private boolean isDigit(char ch) {
@@ -159,7 +159,7 @@ public class Lexer {
         }
         currentIndex--;
         Type type = isHardKeyword(lexeme.toString()) ? Type.HKW : isSoftKeyword(lexeme.toString()) ? Type.SKW : Type.VAR;
-        tokens.add(new Token(type, lexeme.toString()));
+        lexemes.add(new Lexeme(type, lexeme.toString()));
     }
 
     private boolean isHardKeyword(String text) {
@@ -186,6 +186,6 @@ public class Lexer {
             lexem.append(inputStream[currentIndex++]);
         }
         currentIndex--;
-        tokens.add(new Token(Type.OP, lexem.toString()));
+        lexemes.add(new Lexeme(Type.OP, lexem.toString()));
     }
 }

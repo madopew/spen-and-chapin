@@ -2,10 +2,10 @@ package lexer;
 
 import lexer.enums.Type;
 
-public class Token {
+public class Lexeme {
     public Type type;
     public String value;
-    public Token(Type type, String value) {
+    public Lexeme(Type type, String value) {
         this.type = type;
         this.value = value;
     }

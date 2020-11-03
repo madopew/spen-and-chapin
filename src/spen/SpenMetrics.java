@@ -1,7 +1,7 @@
 package spen;
 
 import lexer.Lexer;
-import lexer.Token;
+import lexer.Lexeme;
 import lexer.enums.Type;
 
 import java.util.HashMap;
@@ -17,14 +17,14 @@ public class SpenMetrics {
     }
 
     void calculateSpens() {
-        List<Token> tokens = l.getTokens();
-        spens = new HashMap<>(tokens.size() / 3);
-        for(int i = 0; i < tokens.size() - 1; i++) {
-            addSpen(tokens.get(i), tokens.get(i + 1));
+        List<Lexeme> lexemes = l.getLexemes();
+        spens = new HashMap<>(lexemes.size() / 3);
+        for(int i = 0; i < lexemes.size() - 1; i++) {
+            addSpen(lexemes.get(i), lexemes.get(i + 1));
         }
     }
 
-    void addSpen(Token t, Token next) {
+    void addSpen(Lexeme t, Lexeme next) {
         if(next.value.equals("("))
             return;
         if(t.type != Type.VAR)
