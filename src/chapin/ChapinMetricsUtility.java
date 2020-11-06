@@ -2,7 +2,7 @@ package chapin;
 
 import chapin.enums.GroupType;
 
-class VariableGroup {
+class ChapinMetricsUtility {
     static GroupType defineGroupType(VariableProperties vp) {
         if(vp.isUnused)
             return GroupType.T;
