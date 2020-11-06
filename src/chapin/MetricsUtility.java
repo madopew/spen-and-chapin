@@ -2,8 +2,8 @@ package chapin;
 
 import chapin.enums.GroupType;
 
-class ChapinMetricsUtility {
-    static GroupType defineGroupType(VariableProperties vp) {
+class MetricsUtility {
+    static GroupType defineGroupType(ChapinVariable vp) {
         if(vp.isUnused)
             return GroupType.T;
         if(vp.isInCondition)

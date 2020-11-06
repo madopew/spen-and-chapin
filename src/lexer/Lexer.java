@@ -168,7 +168,7 @@ public class Lexer {
     }
 
     private boolean isSoftKeyword(String text) {
-        String keywords = " Int Double Boolean String Char Float Long until downTo by catch constructor delegate dynamic field file finally get import init param property receiver set setparam where actual abstract annotation companion const crossinline data enum expect external final inflix inline inner internal lateinit noinline open operator out override private protected public reified sealed suspend tailrec vararg field it ";
+        String keywords = " Int Integer Double Boolean String Char Float Long until downTo by catch constructor delegate dynamic field file finally get import init param property receiver set setparam where actual abstract annotation companion const crossinline data enum expect external final inflix inline inner internal lateinit noinline open operator out override private protected public reified sealed suspend tailrec vararg field it ";
         return keywords.contains(" " + text + " ");
     }
 

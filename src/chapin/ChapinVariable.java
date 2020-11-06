@@ -1,14 +1,13 @@
 package chapin;
 
-class VariableProperties {
-    String variableName;
+class ChapinVariable extends Variable{
     boolean isIO;
     boolean isModified;
     boolean isInCondition;
     boolean isUnused;
 
-    public VariableProperties(String name) {
-        variableName = name;
+    public ChapinVariable(String name) {
+        super(name);
         isIO = false;
         isModified = false;
         isInCondition = false;
