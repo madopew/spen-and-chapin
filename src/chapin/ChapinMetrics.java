@@ -1,15 +1,18 @@
 package chapin;
 
+import chapin.enums.GroupType;
 import lexer.Lexeme;
 import lexer.Lexer;
 import lexer.enums.Type;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ChapinMetrics {
     List<Lexeme> lexemes;
-    List<ChapinType> chapinTypes;
+    Map<GroupType, List<String>> chapinTypes;
     List<ChapinVariable> chapinVariables;
     int currentIndex;
 
@@ -20,21 +23,33 @@ public class ChapinMetrics {
         countChapinTypes();
     }
 
-    public List<ChapinType> getChapinTypes() {
+    public Map<GroupType, List<String>> getChapinTypes() {
         return chapinTypes;
     }
 
-    public List<ChapinVariable> getChapinVariables() { return chapinVariables; }
-
     void countChapinTypes() {
         handleProgram();
-
+        chapinVariables.forEach(System.out::println);
+        chapinTypes = new HashMap<>();
+        chapinVariables.forEach(v -> {
+            GroupType t = MetricsUtility.defineGroupType(v);
+            if(chapinTypes.containsKey(t)) {
+                chapinTypes.get(t).add(v.identifier);
+            } else {
+                chapinTypes.put(t, new ArrayList<>());
+                chapinTypes.get(t).add(v.identifier);
+            }
+        });
     }
+
+
 
     private void handleProgram() {
         while (currentIndex < lexemes.size()) {
             String lexemeValue = lexemes.get(currentIndex).value;
-            if (MetricsUtility.isTokenDefine(lexemeValue)) {
+            if (MetricsUtility.isUnary(lexemeValue)) {
+                handleUnary();
+            } else if (MetricsUtility.isTokenDefine(lexemeValue)) {
                 currentIndex++;
                 handleInitialization();
             } else if (MetricsUtility.isTokenCondition(lexemeValue)) {
@@ -64,6 +79,16 @@ public class ChapinMetrics {
         }
     }
 
+    private void handleUnary() {
+        if (lexemes.get(currentIndex - 1).type == Type.VAR) {
+            findVariable(lexemes.get(currentIndex - 1).value).isModified = true;
+            currentIndex++;
+        } else {
+            findVariable(lexemes.get(currentIndex + 1).value).isModified = true;
+            currentIndex += 2;
+        }
+    }
+
     private ChapinVariable findVariable(String token) {
         for (ChapinVariable v : chapinVariables) {
             if (v.identifier.equals(token))
@@ -80,7 +105,9 @@ public class ChapinMetrics {
     private void handleInitialization() {
         while (currentIndex < lexemes.size()) {
             Lexeme current = lexemes.get(currentIndex);
-            if (current.type == Type.VAR) {
+            if (MetricsUtility.isUnary(current.value)) {
+                handleUnary();
+            } else if (current.type == Type.VAR) {
                 chapinVariables.add(new ChapinVariable(current.value));
                 currentIndex++;
             } else if (MetricsUtility.isTokenAssignment(current.value)) {
@@ -98,13 +125,16 @@ public class ChapinMetrics {
         }
     }
 
+    //TODO for initialization
     private void handleCondition() {
         int bracketsAmount = 1;
         while(currentIndex < lexemes.size()) {
             Lexeme current = lexemes.get(currentIndex);
-            if(isTokenFunction()) {
+            if (MetricsUtility.isUnary(current.value)) {
+                handleUnary();
+            } else if(isTokenFunction()) {
                 currentIndex += 2;
-                handleFunction();
+                bracketsAmount++;
             } else if(current.type == Type.VAR) {
                 ChapinVariable v = findVariable(current.value);
                 v.isUnused = false;
@@ -128,9 +158,11 @@ public class ChapinMetrics {
         int bracketsAmount = 1;
         while(currentIndex < lexemes.size()) {
             Lexeme current = lexemes.get(currentIndex);
-            if(isTokenFunction()) {
+            if (MetricsUtility.isUnary(current.value)) {
+                handleUnary();
+            } else if(isTokenFunction()) {
                 currentIndex += 2;
-                handleFunction();
+                bracketsAmount++;
             } else if(current.type == Type.VAR) {
                 ChapinVariable v = findVariable(current.value);
                 v.isUnused = false;
@@ -154,15 +186,17 @@ public class ChapinMetrics {
         boolean toReturn  = false;
         while (currentIndex < lexemes.size()) {
             Lexeme current = lexemes.get(currentIndex);
-            if (isTokenFunction()) {
+            if (MetricsUtility.isUnary(current.value)) {
+                handleUnary();
+            } else if (MetricsUtility.isTokenInput(current.value)) {
+                toReturn = true;
+                currentIndex += 3;
+            } else if (isTokenFunction()) {
                 currentIndex += 2;
                 toReturn = handleFunction();
             } else if (current.type == Type.VAR) {
                 findVariable(current.value).isUnused = false;
                 currentIndex++;
-            } else if (MetricsUtility.isTokenInput(current.value)) {
-                toReturn = true;
-                currentIndex += 3;
             } else if (MetricsUtility.isTokenAssignment(current.value)) {
                 ChapinVariable previous = findVariable(lexemes.get(currentIndex - 1).value);
                 if(previous.isInitialized) {
@@ -171,6 +205,7 @@ public class ChapinMetrics {
                     previous.isIO = property;
                     previous.isModified = !property;
                 } else {
+                    currentIndex++;
                     previous.isInitialized = true;
                     previous.isIO = handleExpression();
                 }
@@ -190,15 +225,17 @@ public class ChapinMetrics {
         boolean toReturn = false;
         while(currentIndex < lexemes.size()) {
             Lexeme current = lexemes.get(currentIndex);
-            if(isTokenFunction()) {
+            if (MetricsUtility.isUnary(current.value)) {
+                handleUnary();
+            } else if(MetricsUtility.isTokenInput(current.value)) {
+                toReturn = true;
+                currentIndex += 3;
+            } else if(isTokenFunction()) {
                 currentIndex += 2;
                 handleFunction();
             } else if(current.type == Type.VAR) {
                 findVariable(current.value).isUnused = false;
                 currentIndex++;
-            } else if(MetricsUtility.isTokenInput(current.value)) {
-                toReturn = true;
-                currentIndex += 3;
             } else if(current.value.equals("(")) {
                 bracketsAmount++;
                 currentIndex++;

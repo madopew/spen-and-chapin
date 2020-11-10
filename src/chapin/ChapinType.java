@@ -16,6 +16,17 @@ public class ChapinType {
         this.amount = variables.size();
     }
 
+    public ChapinType(GroupType type) {
+        this.type = type;
+        this.variables = new ArrayList<>();
+        this.amount = 0;
+    }
+
+    void addVariable(String name) {
+        variables.add(name);
+        amount++;
+    }
+
     public GroupType getType() {
         return type;
     }

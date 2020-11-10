@@ -1,12 +1,13 @@
 package main;
 
 import chapin.ChapinMetrics;
-import chapin.ChapinVariable;
+import chapin.enums.GroupType;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,6 +24,7 @@ public class Main {
         }
 
         ChapinMetrics c = new ChapinMetrics(sb.toString());
-
+        Map<GroupType, List<String>> t = c.getChapinTypes();
+        System.out.println(t);
     }
 }

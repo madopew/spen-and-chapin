@@ -36,4 +36,8 @@ class MetricsUtility {
     static boolean isTokenType(String token) {
         return " Int Integer Double Boolean String Char Float Long ".contains(" " + token + " ");
     }
+
+    static boolean isUnary(String token) {
+        return " ++ -- ".contains(" " + token + " ");
+    }
 }
