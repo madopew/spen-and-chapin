@@ -2,10 +2,11 @@ package chapin;
 
 class Variable {
     String identifier;
-    boolean initialized;
+    boolean isInitialized;
 
     public Variable(String name) {
         this.identifier = name;
-        initialized = false;
+        isInitialized = false;
     }
+
 }
