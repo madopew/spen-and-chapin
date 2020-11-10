@@ -1,11 +1,12 @@
 package main;
 
-import spen.SpenMetrics;
+import chapin.ChapinMetrics;
+import chapin.ChapinVariable;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.Map;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,8 +22,7 @@ public class Main {
             System.err.println("File error");
         }
 
-        SpenMetrics s = new SpenMetrics(sb.toString());
-        Map<String, Integer> spens = s.getSpens();
-        spens.forEach((key, value) -> System.out.printf("(%s; %d)\n", key, value));
+        ChapinMetrics c = new ChapinMetrics(sb.toString());
+
     }
 }
