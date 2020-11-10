@@ -1,7 +1,7 @@
 package spen;
 
-import lexer.Lexer;
 import lexer.Lexeme;
+import lexer.Lexer;
 import lexer.enums.Type;
 
 import java.util.HashMap;

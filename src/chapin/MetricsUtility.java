@@ -12,4 +12,28 @@ class MetricsUtility {
             return GroupType.M;
         return GroupType.P;
     }
+
+    static boolean isTokenDefine(String token) {
+        return " var val ".contains(" " + token + " ");
+    }
+
+    static boolean isTokenCondition(String token) {
+        return " if while for switch ".contains(" " + token + " ");
+    }
+
+    static boolean isTokenAssignment(String token) {
+        return " = += -= /= *= %= >>= <<= &= |= ".contains(" " + token + " ");
+    }
+
+    static boolean isTokenOutput(String token) {
+        return " print println ".contains(" " + token + " ");
+    }
+
+    static boolean isTokenInput(String token) {
+        return " read readln readLine ".contains(" " + token + " ");
+    }
+
+    static boolean isTokenType(String token) {
+        return " Int Integer Double Boolean String Char Float Long ".contains(" " + token + " ");
+    }
 }
