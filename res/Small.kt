@@ -1,7 +1,8 @@
-fun findExp(a : Double) : Double {
+fun findExp() : Double {
+    val a = 3.53
     val eps = 0.00001
     var x : Double
-    var y : Doubleg
+    var y : Double
     var det : Double
     var n : Int = 1
     x = a
