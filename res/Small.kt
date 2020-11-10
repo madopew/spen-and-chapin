@@ -1,18 +1,17 @@
 fun findExp() : Double {
-    val a = 3.53
+    val a = Integer.valueOf(readLine()!!)
     val eps = 0.00001
     var x : Double
     var y : Double
     var det : Double
-    var n : Int = 1
+    var n : Int
     x = a
-    y = 1.0
+    println(getAbs(x++))
+    y = n = 1
     var t = x - y
-    t += 5
     det = 1.0
     do {
-        det = det * x / n
-        n++
+        det = det * x / n++
         y += det;
     } while (getAbs(det) > eps)
     return y
