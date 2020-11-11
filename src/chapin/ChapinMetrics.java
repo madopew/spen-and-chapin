@@ -88,6 +88,7 @@ public class ChapinMetrics {
         while (index < lexemes.size()) {
             Lexeme current = lexemes.get(index);
             switch (getToken(index)) {
+                //TODO handle function decalration
                 case UNARY:
                     //TODO handle unary
                     break;
