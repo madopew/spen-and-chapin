@@ -1,24 +1,24 @@
-fun findExp() : Double {
-    val a = Integer.valueOf(readLine()!!)
-    val eps = 0.00001
-    var x : Double
+fun sin() : Double {
+    val eps = 1e-4
     var y : Double
-    var det : Double
-    var n : Int
-    x = a
-    println(getAbs(x++))
-    y = n = 1
-    var t = x - y
-    det = 1.0
-    do {
-        det = det * x / n++
-        y += det;
-    } while (getAbs(det) > eps)
-    return y
-}
+    var x : Double
+    var n : Integer
+    var vs : Double
 
-// a, eps, x, y, det, n, t
-// T - t
-// C - det, eps
-// M - y, n
-// P - a, x
+    var t = x - y
+    t /= 3
+    t = readLine()!!
+    t += 8
+    println(t)
+
+    x = abs(valueOf(readLine()!!))
+    y = x
+    n = 2
+    vs = x
+    do {
+        vs = - vs * x * x / (2 * n - 1) / (2 * n - 2) //ok
+        n = n + 1
+        y += vs
+    } while (abs(vs) >= eps)
+    println(x, y, eps)
+}
