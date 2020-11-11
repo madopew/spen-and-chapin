@@ -6,6 +6,10 @@ class ChapinVariable extends Variable {
     boolean isInCondition;
     boolean isUnused;
 
+    public ChapinVariable() {
+
+    }
+
     public ChapinVariable(String name) {
         super(name);
         isIO = false;

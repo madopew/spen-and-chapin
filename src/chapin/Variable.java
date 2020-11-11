@@ -9,4 +9,8 @@ class Variable {
         isInitialized = false;
     }
 
+    public Variable() {
+
+    }
+
 }
