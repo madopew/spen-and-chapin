@@ -1,4 +1,3 @@
 fun sin() : Double {
-    var y = 2
-    var x = bas(readLine()) + c
+    for(i in 3..2)
 }

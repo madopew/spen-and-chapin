@@ -2,6 +2,7 @@ package chapin;
 
 import chapin.enums.GroupType;
 import chapin.exceptions.UndefinedStateExpression;
+import chapin.exceptions.UndefinedVariableExpression;
 import lexer.Lexeme;
 import lexer.Lexer;
 import lexer.enums.Type;
@@ -177,8 +178,16 @@ public class ChapinMetrics {
                             chapinVariables.add(lastVariable);
                             break;
                         case IN_CONDITION:
-                            //TODO variable in for declaration...
                             lastVariable = findVariable(current.value);
+
+                            /*try {
+                                lastVariable = findVariable(current.value);
+                            } catch (UndefinedVariableExpression e) {
+                                System.err.printf("Undefined token '%s' met in condition. New variable assigned.\n", current.value);
+                                lastVariable = new ChapinVariable(current.value);
+                                chapinVariables.add(lastVariable);
+                            }*/
+
                             lastVariable.isUnused = false;
                             lastVariable.isInCondition = true;
                             break;
@@ -307,7 +316,7 @@ public class ChapinMetrics {
             if (v.identifier.equals(token))
                 return v;
         }
-        return null;
+        throw new UndefinedVariableExpression(token);
     }
 
     private boolean isCurrentTokenFunction() {
