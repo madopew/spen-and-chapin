@@ -6,10 +6,7 @@ import lexer.Lexeme;
 import lexer.Lexer;
 import lexer.enums.Type;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ChapinMetrics {
@@ -18,7 +15,6 @@ public class ChapinMetrics {
     List<ChapinVariable> chapinVariables;
 
     int currentIndex;
-    ParserState state;
 
     public ChapinMetrics(String rawText) {
         lexemes = new Lexer(rawText).getLexemes();
@@ -84,13 +80,21 @@ public class ChapinMetrics {
         boolean savedProperty = true;
         int index = 0;
         int bracketAmount = 0;
-        state = ParserState.NORMAL;
+        ParserState state = ParserState.NORMAL;
+        Stack<ParserState> funcStateStack = new Stack<>();
         while (index < lexemes.size()) {
             Lexeme current = lexemes.get(index);
             switch (getToken(index)) {
-                //TODO handle function decalration
+                //TODO handle function declaration
                 case UNARY:
-                    //TODO handle unary
+                    if (lexemes.get(index - 1).type == Type.VAR) {
+                        lastVariable.isModified = true;
+                    } else if (lexemes.get(index + 1).type == Type.VAR){
+                        findVariable(lexemes.get(index + 1).value).isModified = true;
+                    } else {
+                        throw new UndefinedStateExpression(current.value, state.name());
+                    }
+                    index++;
                     break;
                 case DEFINE:
                     if(state == ParserState.NORMAL) {
@@ -110,17 +114,22 @@ public class ChapinMetrics {
                     break;
                 case ASSIGNMENT:
                     switch (state) {
-                        case IN_INITIALIZATION:
                         case IN_EXPRESSION:
+                            savedVariable.isIO |= savedProperty;
+                            if(savedVariable.isInitialized)
+                                savedVariable.isModified = true;
+                            else
+                                savedVariable.isInitialized = true;
+                        case IN_INITIALIZATION:
                         case NORMAL:
                             savedVariable = lastVariable;
                             savedProperty = false;
                             state = ParserState.IN_EXPRESSION;
-                            index++;
                             break;
                         default:
                             throw new UndefinedStateExpression(current.value, state.name());
                     }
+                    index++;
                     break;
                 case INPUT:
                     switch (state) {
@@ -143,12 +152,13 @@ public class ChapinMetrics {
                     break;
                 case FUNCTION:
                     switch (state) {
-                        case IN_FUNCTION:
                         case IN_EXPRESSION:
                         case NORMAL:
+                            funcStateStack.push(state);
                             index++;
                             state = ParserState.IN_FUNCTION;
                             break;
+                        case IN_FUNCTION:
                         case IN_OUTPUT:
                         case IN_CONDITION:
                             index++;
@@ -191,7 +201,7 @@ public class ChapinMetrics {
                             state = ParserState.NORMAL;
                             savedVariable.isIO |= savedProperty;
                             if(savedVariable.isInitialized)
-                                savedVariable.isModified |= !savedProperty;
+                                savedVariable.isModified = true;
                             else
                                 savedVariable.isInitialized = true;
                             break;
@@ -235,12 +245,8 @@ public class ChapinMetrics {
                         case IN_FUNCTION:
                             bracketAmount--;
                             if(bracketAmount == 0) {
-                                state = ParserState.NORMAL;
+                                state = funcStateStack.pop();
                                 savedVariable.isIO |= savedProperty;
-                                if(savedVariable.isInitialized)
-                                    savedVariable.isModified |= !savedProperty;
-                                else
-                                    savedVariable.isInitialized = true;
                             }
                             break;
                     }
