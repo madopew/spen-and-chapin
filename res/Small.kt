@@ -1,3 +1,5 @@
 fun sin() : Double {
-    for(i in 3..2)
+    val x = 3
+    var y = x
+    y++
 }
