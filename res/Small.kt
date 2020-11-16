@@ -1,5 +1,6 @@
 fun sin() : Double {
-    val x = 3
+    val x = readLine()!!
     var y = x
     y++
+    println(y)
 }
