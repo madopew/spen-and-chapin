@@ -9,7 +9,34 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.Map;
 
-public class Main {
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+    private static Stage mainStage;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("Spen-Chapin-Metrics.fxml"));
+        primaryStage.setTitle("Spen and Chapin metric");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+        mainStage = primaryStage;
+    }
+
+    public static Stage getStage() {
+        return mainStage;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+/*public class Main {
     public static void main(String[] args) {
         String file = "./res/Small.kt";
         StringBuilder sb = new StringBuilder();
@@ -28,3 +55,4 @@ public class Main {
         System.out.println(t);
     }
 }
+*/

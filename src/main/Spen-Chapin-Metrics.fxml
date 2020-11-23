@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="763.0" prefWidth="1139.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+    <children>
+        <MenuBar minWidth="-Infinity" prefHeight="58.0" prefWidth="1139.0" VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open file" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#exitAction" text="Exit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#aboutProgram" text="About program" />
+                        <MenuItem mnemonicParsing="false" onAction="#aboutDevelopers" text="About developers" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1136.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Text layoutX="211.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spen and Chapin metric" wrappingWidth="342.0">
+                    <font>
+                        <Font name="Bodoni MT Bold" size="28.0" />
+                    </font>
+                </Text>
+                <Text layoutX="282.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="for a program writen in Kotlin" wrappingWidth="178.72265625">
+                    <font>
+                        <Font name="Bodoni MT" size="15.0" />
+                    </font>
+                </Text>
+                <TableView fx:id="tableSpen" layoutX="26.0" layoutY="85.0" prefHeight="458.0" prefWidth="345.0">
+                    <columns>
+                        <TableColumn fx:id="spenVar" minWidth="157.0" prefWidth="162.0" text="Variable" />
+                        <TableColumn fx:id="spens" minWidth="36.800048828125" prefWidth="182.0" text="Spens" />
+                    </columns>
+                </TableView>
+                <TableView fx:id="tableChapinP" layoutX="369.0" layoutY="85.0" prefHeight="99.0" prefWidth="343.0">
+                    <columns>
+                        <TableColumn fx:id="chapinPVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="P variables" />
+                        <TableColumn fx:id="chapinPAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
+                    </columns>
+                </TableView>
+            <TableView fx:id="tableChapinM" layoutX="369.0" layoutY="184.0" prefHeight="103.0" prefWidth="343.0">
+               <columns>
+                  <TableColumn fx:id="chapinMVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="M variables" />
+                  <TableColumn fx:id="ChapinMAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
+               </columns>
+            </TableView>
+            <TableView fx:id="tableChapinC" layoutX="370.0" layoutY="287.0" prefHeight="127.0" prefWidth="341.0">
+               <columns>
+                  <TableColumn fx:id="chapinCVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="C variables" />
+                  <TableColumn fx:id="chapinCAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
+               </columns>
+            </TableView>
+            <TableView fx:id="tableChapinT" layoutX="370.0" layoutY="413.0" prefHeight="129.0" prefWidth="341.0">
+               <columns>
+                  <TableColumn fx:id="chapinTVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="T variables" />
+                  <TableColumn fx:id="chapinTAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
+               </columns>
+            </TableView>
+            <TableView fx:id="tableChapinIOP" layoutX="709.0" layoutY="85.0" prefHeight="103.0" prefWidth="343.0">
+               <columns>
+                  <TableColumn fx:id="chapinIOPVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="P IO variables" />
+                  <TableColumn fx:id="chapinIOPAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
+               </columns>
+            </TableView>
+            <TableView fx:id="tableChapinIOM" layoutX="709.0" layoutY="185.0" prefHeight="103.0" prefWidth="343.0">
+               <columns>
+                  <TableColumn fx:id="chapinIOMVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="M IO variables" />
+                  <TableColumn fx:id="ChapinIOMAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
+               </columns>
+            </TableView>
+            <TableView fx:id="tableChapinIOC" layoutX="710.0" layoutY="288.0" prefHeight="127.0" prefWidth="341.0">
+               <columns>
+                  <TableColumn fx:id="chapinIOCVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="C IO variables" />
+                  <TableColumn fx:id="chapinIOCAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
+               </columns>
+            </TableView>
+            <TableView fx:id="tableChapinIOT" layoutX="710.0" layoutY="414.0" prefHeight="129.0" prefWidth="341.0">
+               <columns>
+                  <TableColumn fx:id="chapinIOTVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="T IO variables" />
+                  <TableColumn fx:id="chapinIOTAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
+               </columns>
+            </TableView>
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>
