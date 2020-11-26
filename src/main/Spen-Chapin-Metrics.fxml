@@ -48,54 +48,75 @@
                         <TableColumn fx:id="spens" minWidth="36.800048828125" prefWidth="182.0" text="Spens" />
                     </columns>
                 </TableView>
-                <TableView fx:id="tableChapinP" layoutX="369.0" layoutY="85.0" prefHeight="99.0" prefWidth="343.0">
+                <TableView fx:id="tableChapinFull" layoutX="371.0" layoutY="85.0" prefHeight="458.0" prefWidth="664.0">
                     <columns>
-                        <TableColumn fx:id="chapinPVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="P variables" />
-                        <TableColumn fx:id="chapinPAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
+                        <TableColumn fx:id="chapinTable" minWidth="110.9464111328125" prefWidth="297.68597412109375" sortable="false" text="Full Chapin metrics">
+                     <columns>
+                        <TableColumn fx:id="chapinPVar" prefWidth="89.86529541015625" text="P" />
+                              <TableColumn fx:id="chapinMVar" minWidth="55.537353515625" prefWidth="94.94580078125" text="M" />
+                        <TableColumn fx:id="chapinCVar" prefWidth="96.05419921875" text="C" />
+                        <TableColumn fx:id="chapinTVar" prefWidth="83.431884765625" text="T" />
+                     </columns></TableColumn>
+                  <TableColumn fx:id="chapinIOTable" prefWidth="300.0" text="IO Chapin metrics">
+                     <columns>
+                        <TableColumn fx:id="chapinIOPVar" prefWidth="75.0" text="P" />
+                        <TableColumn fx:id="chapinIOMVar" prefWidth="75.0" text="M" />
+                        <TableColumn fx:id="chapinIOCVar" prefWidth="75.0" text="C" />
+                        <TableColumn fx:id="chapinIOTVar" prefWidth="75.0" text="T" />
+                     </columns>
+                  </TableColumn>
                     </columns>
                 </TableView>
-            <TableView fx:id="tableChapinM" layoutX="369.0" layoutY="184.0" prefHeight="103.0" prefWidth="343.0">
-               <columns>
-                  <TableColumn fx:id="chapinMVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="M variables" />
-                  <TableColumn fx:id="ChapinMAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
-               </columns>
-            </TableView>
-            <TableView fx:id="tableChapinC" layoutX="370.0" layoutY="287.0" prefHeight="127.0" prefWidth="341.0">
-               <columns>
-                  <TableColumn fx:id="chapinCVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="C variables" />
-                  <TableColumn fx:id="chapinCAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
-               </columns>
-            </TableView>
-            <TableView fx:id="tableChapinT" layoutX="370.0" layoutY="413.0" prefHeight="129.0" prefWidth="341.0">
-               <columns>
-                  <TableColumn fx:id="chapinTVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="T variables" />
-                  <TableColumn fx:id="chapinTAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
-               </columns>
-            </TableView>
-            <TableView fx:id="tableChapinIOP" layoutX="709.0" layoutY="85.0" prefHeight="103.0" prefWidth="343.0">
-               <columns>
-                  <TableColumn fx:id="chapinIOPVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="P IO variables" />
-                  <TableColumn fx:id="chapinIOPAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
-               </columns>
-            </TableView>
-            <TableView fx:id="tableChapinIOM" layoutX="709.0" layoutY="185.0" prefHeight="103.0" prefWidth="343.0">
-               <columns>
-                  <TableColumn fx:id="chapinIOMVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="M IO variables" />
-                  <TableColumn fx:id="ChapinIOMAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
-               </columns>
-            </TableView>
-            <TableView fx:id="tableChapinIOC" layoutX="710.0" layoutY="288.0" prefHeight="127.0" prefWidth="341.0">
-               <columns>
-                  <TableColumn fx:id="chapinIOCVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="C IO variables" />
-                  <TableColumn fx:id="chapinIOCAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
-               </columns>
-            </TableView>
-            <TableView fx:id="tableChapinIOT" layoutX="710.0" layoutY="414.0" prefHeight="129.0" prefWidth="341.0">
-               <columns>
-                  <TableColumn fx:id="chapinIOTVar" minWidth="110.9464111328125" prefWidth="114.46502685546875" sortable="false" text="T IO variables" />
-                  <TableColumn fx:id="chapinIOTAmount" minWidth="60.0" prefWidth="227.53497314453125" text="Amount" />
-               </columns>
-            </TableView>
+            <Text fx:id="chapinP" layoutX="374.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p = " wrappingWidth="82.67794799804688">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text fx:id="chapinM" layoutX="468.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="m = " wrappingWidth="96.53268432617188">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text fx:id="chapinC" layoutX="569.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="c = " wrappingWidth="83.60974726132787">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text fx:id="chapinT" layoutX="656.0" layoutY="572.0" strokeType="OUTSIDE" strokeWidth="0.0" text="t = " wrappingWidth="83.60974726132787">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text fx:id="chapinIOP" layoutX="743.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="p = " wrappingWidth="72.4168180539017">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text fx:id="chapinIOM" layoutX="819.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="m = " wrappingWidth="72.4168180539017">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text fx:id="chapinIOC" layoutX="896.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="c = " wrappingWidth="72.4168180539017">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text fx:id="chapinIOT" layoutX="977.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="t = " wrappingWidth="62.72229864133931">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text fx:id="chapinQ" layoutX="384.0" layoutY="621.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Q = ">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="chapinIOQ" layoutX="784.0" layoutY="621.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Q = ">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
             </children>
         </AnchorPane>
     </children>

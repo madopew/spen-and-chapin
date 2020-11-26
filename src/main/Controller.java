@@ -19,7 +19,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -33,119 +32,110 @@ public class Controller implements Initializable {
     private URL location;
 
     @FXML
-    private TableView<Item> tableSpen;
+    private TableView<SpenItem> tableSpen;
 
     @FXML
-    private TableColumn<Item, String> spenVar;
+    private TableColumn<SpenItem, String> spenVar;
 
     @FXML
-    private TableColumn<Item, String> spens;
+    private TableColumn<SpenItem, String> spens;
 
     @FXML
-    private TableView<Item> tableChapinP;
+    private TableView<Item> tableChapinFull;
+
+    @FXML
+    private TableColumn<Item, String> chapinTable;
 
     @FXML
     private TableColumn<Item, String> chapinPVar;
 
     @FXML
-    private TableColumn<Item, String> chapinPAmount;
-
-    @FXML
-    private TableView<Item> tableChapinM;
-
-    @FXML
     private TableColumn<Item, String> chapinMVar;
-
-    @FXML
-    private TableColumn<Item, String> ChapinMAmount;
-
-    @FXML
-    private TableView<Item> tableChapinC;
 
     @FXML
     private TableColumn<Item, String> chapinCVar;
 
     @FXML
-    private TableColumn<Item, String> chapinCAmount;
-
-    @FXML
-    private TableView<Item> tableChapinT;
-
-    @FXML
     private TableColumn<Item, String> chapinTVar;
 
     @FXML
-    private TableColumn<Item, String> chapinTAmount;
-
-    @FXML
-    private TableView<Item> tableChapinIOP;
-
-    @FXML
-    private TableColumn<Item, String> chapinIOPVar;
-
-    @FXML
-    private TableColumn<Item, String> chapinIOPAmount;
-
-    @FXML
-    private TableView<Item> tableChapinIOM;
+    private TableColumn<Item, String> chapinIOTable;
 
     @FXML
     private TableColumn<Item, String> chapinIOMVar;
 
     @FXML
-    private TableColumn<Item, String> ChapinIOMAmount;
-
-    @FXML
-    private TableView<Item> tableChapinIOC;
-
-    @FXML
     private TableColumn<Item, String> chapinIOCVar;
-
-    @FXML
-    private TableColumn<Item, String> chapinIOCAmount;
-
-    @FXML
-    private TableView<Item> tableChapinIOT;
 
     @FXML
     private TableColumn<Item, String> chapinIOTVar;
 
     @FXML
-    private TableColumn<Item, String> chapinIOTAmount;
+    private Text chapinP;
 
+    @FXML
+    private Text chapinM;
 
-    private static ObservableList<Item> dataSpenVars = FXCollections.observableArrayList();
+    @FXML
+    private Text chapinC;
 
-    private static ObservableList<Item> dataChapinIOPVars = FXCollections.observableArrayList();
-    private static ObservableList<Item> dataChapinIOMVars = FXCollections.observableArrayList();
-    private static ObservableList<Item> dataChapinIOCVars = FXCollections.observableArrayList();
-    private static ObservableList<Item> dataChapinIOTVars = FXCollections.observableArrayList();
+    @FXML
+    private Text chapinT;
 
-    private static ObservableList<Item> dataChapinPVars = FXCollections.observableArrayList();
-    private static ObservableList<Item> dataChapinMVars = FXCollections.observableArrayList();
-    private static ObservableList<Item> dataChapinCVars = FXCollections.observableArrayList();
-    private static ObservableList<Item> dataChapinTVars = FXCollections.observableArrayList();
+    @FXML
+    private Text chapinIOP;
+
+    @FXML
+    private Text chapinIOM;
+
+    @FXML
+    private Text chapinIOC;
+
+    @FXML
+    private Text chapinQ;
+
+    @FXML
+    private Text chapinIOQ;
+
+    @FXML
+    private TableColumn<Item, String> chapinIOPVar;
+
+    @FXML
+    private Text chapinIOT;
+
+    final String qText = "Q = ";
+    final String pText = "p = ";
+    final String mText = "m = ";
+    final String cText = "c = ";
+    final String tText = "t = ";
+
+    private static ObservableList<SpenItem> dataSpenVars = FXCollections.observableArrayList();
+
+    private static ObservableList<Item> dataChapinTable = FXCollections.observableArrayList();
+
+    private static ObservableList<String> dataChapinIOPVars = FXCollections.observableArrayList();
+    private static ObservableList<String> dataChapinIOMVars = FXCollections.observableArrayList();
+    private static ObservableList<String> dataChapinIOCVars = FXCollections.observableArrayList();
+    private static ObservableList<String> dataChapinIOTVars = FXCollections.observableArrayList();
+
+    private static ObservableList<String> dataChapinPVars = FXCollections.observableArrayList();
+    private static ObservableList<String> dataChapinMVars = FXCollections.observableArrayList();
+    private static ObservableList<String> dataChapinCVars = FXCollections.observableArrayList();
+    private static ObservableList<String> dataChapinTVars = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        spenVar.setCellValueFactory(new PropertyValueFactory<>("item"));
-        spens.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        chapinPVar.setCellValueFactory(new PropertyValueFactory<>("item"));
-        chapinPAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        chapinMVar.setCellValueFactory(new PropertyValueFactory<>("item"));
-        ChapinMAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        chapinCVar.setCellValueFactory(new PropertyValueFactory<>("Item"));
-        chapinCAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        chapinTVar.setCellValueFactory(new PropertyValueFactory<>("item"));
-        chapinTAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        chapinIOPVar.setCellValueFactory(new PropertyValueFactory<>("item"));
-        chapinIOPAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        chapinIOMVar.setCellValueFactory(new PropertyValueFactory<>("item"));
-        ChapinIOMAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        chapinIOCVar.setCellValueFactory(new PropertyValueFactory<>("item"));
-        chapinIOCAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        chapinIOTVar.setCellValueFactory(new PropertyValueFactory<>("item"));
-        chapinIOTAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        spenVar.setCellValueFactory(new PropertyValueFactory<SpenItem, String>("spenName"));
+        spens.setCellValueFactory(new PropertyValueFactory<SpenItem, String>("spen"));
+
+        chapinPVar.setCellValueFactory(new PropertyValueFactory<Item, String>("p"));
+        chapinMVar.setCellValueFactory(new PropertyValueFactory<Item, String>("m"));
+        chapinCVar.setCellValueFactory(new PropertyValueFactory<Item, String>("c"));
+        chapinTVar.setCellValueFactory(new PropertyValueFactory<Item, String>("t"));
+        chapinIOPVar.setCellValueFactory(new PropertyValueFactory<Item, String>("IOp"));
+        chapinIOMVar.setCellValueFactory(new PropertyValueFactory<Item, String>("IOm"));
+        chapinIOCVar.setCellValueFactory(new PropertyValueFactory<Item, String>("IOc"));
+        chapinIOTVar.setCellValueFactory(new PropertyValueFactory<Item, String>("IOt"));
     }
 
     @FXML
@@ -182,6 +172,8 @@ public class Controller implements Initializable {
         dataChapinIOCVars.clear();
         dataChapinIOTVars.clear();
 
+        dataChapinTable.clear();
+
         dataSpenVars.clear();
     }
 
@@ -194,7 +186,7 @@ public class Controller implements Initializable {
             StringBuilder sb = new StringBuilder("");
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 String s = br.readLine();
-                while(s != null) {
+                while (s != null) {
                     sb.append(s).append("\n");
                     s = br.readLine();
                 }
@@ -205,7 +197,7 @@ public class Controller implements Initializable {
 
             ChapinMetrics chapinMetrics = new ChapinMetrics(sb.toString());
             SpenMetrics spenMetrics = new SpenMetrics(sb.toString());
-
+            setDefaultAmounts();
             fillData(spenMetrics.getSpens(), chapinMetrics.getChapinTypes(), chapinMetrics.getIOChapinTypes());
             fillTables();
         } else {
@@ -218,28 +210,39 @@ public class Controller implements Initializable {
         }
     }
 
+    void setDefaultAmounts() {
+
+        chapinP.setText(pText);
+        chapinM.setText(mText);
+        chapinC.setText(cText);
+        chapinT.setText(tText);
+
+        chapinIOP.setText(pText);
+        chapinIOM.setText(mText);
+        chapinIOC.setText(cText);
+        chapinIOT.setText(tText);
+    }
 
 
-    private static void fillData(Map<String, Integer> spens, Map<GroupType, List<String>> chapin, Map<GroupType, List<String>> chapinIO) {
-
+    private void fillData(Map<String, Integer> spens, Map<GroupType, List<String>> chapin, Map<GroupType, List<String>> chapinIO) {
         spens.forEach((name, amount) -> {
-            dataSpenVars.add(new Item(name, amount.toString()));
+            dataSpenVars.add(new SpenItem(name, amount.toString()));
         });
 
         chapin.forEach((group, vars) -> {
             vars.forEach((name) -> {
-                switch (group){
+                switch (group) {
                     case C:
-                        dataChapinCVars.add(new Item(name, ""));
+                        dataChapinCVars.add(name);
                         break;
                     case M:
-                        dataChapinMVars.add(new Item(name, ""));
+                        dataChapinMVars.add(name);
                         break;
                     case P:
-                        dataChapinPVars.add(new Item(name, ""));
+                        dataChapinPVars.add(name);
                         break;
                     case T:
-                        dataChapinTVars.add(new Item(name, ""));
+                        dataChapinTVars.add(name);
                         break;
                 }
             });
@@ -247,41 +250,108 @@ public class Controller implements Initializable {
 
         chapinIO.forEach((group, vars) -> {
             vars.forEach((name) -> {
-                switch (group){
+                switch (group) {
                     case C:
-                        dataChapinIOCVars.add(new Item(name, ""));
+                        dataChapinIOCVars.add(name);
                         break;
                     case M:
-                        dataChapinIOMVars.add(new Item(name, ""));
+                        dataChapinIOMVars.add(name);
                         break;
                     case P:
-                        dataChapinIOPVars.add(new Item(name, ""));
+                        dataChapinIOPVars.add(name);
                         break;
                     case T:
-                        dataChapinIOTVars.add(new Item(name, ""));
+                        dataChapinIOTVars.add(name);
                         break;
                 }
             });
         });
-        dataChapinIOPVars.add(new Item("", Integer.toString(dataChapinIOTVars.size())));
-        dataChapinIOMVars.add(new Item("", Integer.toString(dataChapinIOMVars.size())));
-        dataChapinIOCVars.add(new Item("", Integer.toString(dataChapinIOCVars.size())));
-        dataChapinIOTVars.add(new Item("", Integer.toString(dataChapinIOTVars.size())));
-        dataChapinPVars.add(new Item("", Integer.toString(dataChapinPVars.size())));
-        dataChapinMVars.add(new Item("", Integer.toString(dataChapinMVars.size())));
-        dataChapinCVars.add(new Item("", Integer.toString(dataChapinCVars.size())));
-        dataChapinTVars.add(new Item("", Integer.toString(dataChapinTVars.size())));
+
+        int max = findMax();
+        int index = 0;
+
+        while (index < max) {
+            String pV;
+            String mV;
+            String cV;
+            String tV;
+            String IOpV;
+            String IOmV;
+            String IOcV;
+            String IOtV;
+
+            if (index < dataChapinCVars.size())
+                cV = dataChapinCVars.get(index);
+            else
+                cV = "";
+
+            if (index < dataChapinPVars.size())
+                pV = dataChapinPVars.get(index);
+            else
+                pV = "";
+
+            if (index < dataChapinMVars.size())
+                mV = dataChapinMVars.get(index);
+            else
+                mV = "";
+
+            if (index < dataChapinTVars.size())
+                tV = dataChapinTVars.get(index);
+            else
+                tV = "";
+
+            if (index < dataChapinIOCVars.size())
+                IOcV = dataChapinIOCVars.get(index);
+            else
+                IOcV = "";
+
+            if (index < dataChapinIOPVars.size())
+                IOpV = dataChapinIOPVars.get(index);
+            else
+                IOpV = "";
+
+            if (index < dataChapinIOMVars.size())
+                IOmV = dataChapinIOMVars.get(index);
+            else
+                IOmV = "";
+
+            if (index < dataChapinIOTVars.size())
+                IOtV = dataChapinIOTVars.get(index);
+            else
+                IOtV = "";
+
+            dataChapinTable.add(new Item(pV ,mV, cV, tV, IOpV, IOmV, IOcV, IOtV));
+
+            index++;
+        }
+
+        chapinQ.setText(makeQText(dataChapinPVars.size(), dataChapinMVars.size(), dataChapinCVars.size(), dataChapinTVars.size()));
+        chapinIOQ.setText(makeQText(dataChapinIOPVars.size(), dataChapinIOMVars.size(), dataChapinIOCVars.size(), dataChapinIOTVars.size()));
+
+        chapinP.setText(pText + dataChapinPVars.size());
+        chapinM.setText(mText + dataChapinMVars.size());
+        chapinC.setText(cText + dataChapinCVars.size());
+        chapinT.setText(tText + dataChapinTVars.size());
+        chapinIOP.setText(pText + dataChapinIOPVars.size());
+        chapinIOM.setText(mText + dataChapinIOMVars.size());
+        chapinIOC.setText(cText + dataChapinIOCVars.size());
+        chapinIOT.setText(tText + dataChapinIOTVars.size());
+    }
+
+    public String makeQText(int p, int m, int c, int t){
+        double res = p + 2*m + 3*c + 0.5*t;
+        return "Q = 1*" + p + " + 2*" + m + " + 3*" + c + " + 0,5*" + t  + " = " + res;
+    }
+
+    public int findMax() {
+        return Math.max(dataChapinPVars.size(), Math.max(dataChapinMVars.size(),
+                Math.max(dataChapinCVars.size(), Math.max(dataChapinTVars.size(),
+                        Math.max(dataChapinIOPVars.size(), Math.max(dataChapinIOMVars.size(),
+                                Math.max(dataChapinIOCVars.size(), dataChapinIOTVars.size())))))));
     }
 
     public void fillTables() {
         tableSpen.setItems(dataSpenVars);
-        tableChapinP.setItems(dataChapinPVars);
-        tableChapinM.setItems(dataChapinMVars);
-        tableChapinC.setItems(dataChapinCVars);
-        tableChapinT.setItems(dataChapinTVars);
-        tableChapinIOP.setItems(dataChapinIOPVars);
-        tableChapinIOM.setItems(dataChapinIOMVars);
-        tableChapinIOC.setItems(dataChapinIOCVars);
-        tableChapinIOT.setItems(dataChapinIOTVars);
+        tableChapinFull.setItems(dataChapinTable);
     }
 }
