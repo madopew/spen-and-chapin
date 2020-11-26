@@ -92,6 +92,9 @@ public class Controller implements Initializable {
     private Text chapinIOC;
 
     @FXML
+    private Text spensSum;
+
+    @FXML
     private Text chapinQ;
 
     @FXML
@@ -103,7 +106,7 @@ public class Controller implements Initializable {
     @FXML
     private Text chapinIOT;
 
-    final String qText = "Q = ";
+    final String spensSumText = "Sum = ";
     final String pText = "p = ";
     final String mText = "m = ";
     final String cText = "c = ";
@@ -175,6 +178,8 @@ public class Controller implements Initializable {
         dataChapinTable.clear();
 
         dataSpenVars.clear();
+
+        spenSum = 0;
     }
 
     @FXML
@@ -223,11 +228,14 @@ public class Controller implements Initializable {
         chapinIOT.setText(tText);
     }
 
-
+    static int spenSum = 0;
     private void fillData(Map<String, Integer> spens, Map<GroupType, List<String>> chapin, Map<GroupType, List<String>> chapinIO) {
+
         spens.forEach((name, amount) -> {
             dataSpenVars.add(new SpenItem(name, amount.toString()));
+            spenSum += amount;
         });
+
 
         chapin.forEach((group, vars) -> {
             vars.forEach((name) -> {
@@ -327,6 +335,8 @@ public class Controller implements Initializable {
 
         chapinQ.setText(makeQText(dataChapinPVars.size(), dataChapinMVars.size(), dataChapinCVars.size(), dataChapinTVars.size()));
         chapinIOQ.setText(makeQText(dataChapinIOPVars.size(), dataChapinIOMVars.size(), dataChapinIOCVars.size(), dataChapinIOTVars.size()));
+
+        spensSum.setText(spensSumText + spenSum);
 
         chapinP.setText(pText + dataChapinPVars.size());
         chapinM.setText(mText + dataChapinMVars.size());
