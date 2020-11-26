@@ -5,6 +5,7 @@ fun main(a : Double) {
     var det : Double
     var n : Int = 3
     val PI : Double = 3.14
+    PI += 0.001592
     x = a
     y = a
     det = readLine()!! + a
