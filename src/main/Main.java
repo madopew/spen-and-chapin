@@ -1,15 +1,5 @@
 package main;
 
-import chapin.ChapinMetrics;
-import chapin.enums.GroupType;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.List;
-import java.util.Map;
-
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Spen-Chapin-Metrics.fxml"));
-        primaryStage.setTitle("Spen and Chapin metric");
+        primaryStage.setTitle("Spen and Chapin metrics");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         mainStage = primaryStage;

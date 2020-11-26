@@ -1,8 +1,5 @@
 package main;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.cell.PropertyValueFactory;
-
 public class Item {
     private String p;
     private String m;
