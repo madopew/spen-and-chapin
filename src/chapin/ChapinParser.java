@@ -25,7 +25,8 @@ class ChapinParser {
         IN_CONDITION,
         IN_EXPRESSION,
         IN_OUTPUT,
-        IN_FUNCTION
+        IN_FUNCTION,
+        IN_FUNC_DEFINITION
     }
 
     private static class Token {
@@ -41,7 +42,8 @@ class ChapinParser {
                 DELIMITER = 8,
                 OPEN_BRACKET = 9,
                 CLOSE_BRACKET = 10,
-                OTHER = 11;
+                OTHER = 11,
+                FUN = 12;
     }
 
     @FunctionalInterface
@@ -60,7 +62,8 @@ class ChapinParser {
             this::handleDelimiter,
             this::handleOpenBracket,
             this::handleCloseBracket,
-            this::handleOther
+            this::handleOther,
+            this::handleFun
     };
 
     private ChapinVariable lastVariable;
@@ -170,6 +173,7 @@ class ChapinParser {
             case IN_FUNCTION:
             case IN_OUTPUT:
             case IN_CONDITION:
+            case IN_FUNC_DEFINITION:
                 index++;
                 break;
             case IN_INITIALIZATION:
@@ -182,6 +186,11 @@ class ChapinParser {
             case NORMAL:
                 lastVariable = findVariable(current.value);
                 break;
+            case IN_FUNC_DEFINITION:
+                lastVariable = new ChapinVariable(current.value);
+                lastVariable.isInitialized = true;
+                chapinVariables.add(lastVariable);
+                break;
             case IN_INITIALIZATION:
                 lastVariable = new ChapinVariable(current.value);
                 chapinVariables.add(lastVariable);
@@ -189,6 +198,7 @@ class ChapinParser {
             case IN_CONDITION:
                 lastVariable = findVariable(current.value);
 
+                // conditional variable initialization
                 /*try {
                     lastVariable = findVariable(current.value);
                 } catch (UndefinedVariableExpression e) {
@@ -238,6 +248,7 @@ class ChapinParser {
 
     private void handleOpenBracket(Lexeme current) {
         switch (state) {
+            case IN_FUNC_DEFINITION:
             case IN_EXPRESSION:
             case NORMAL:
             case IN_INITIALIZATION:
@@ -270,11 +281,23 @@ class ChapinParser {
                     savedVariable.isIO |= savedProperty;
                 }
                 break;
+            case IN_FUNC_DEFINITION:
+                state = ParserState.NORMAL;
+                break;
         }
         index++;
     }
 
     private void handleOther(Lexeme current) {
+        index++;
+    }
+
+    private void handleFun(Lexeme current) {
+        if (state == ParserState.NORMAL) {
+            state = ParserState.IN_FUNC_DEFINITION;
+        } else {
+            throw new UndefinedStateExpression(current.value, state.name());
+        }
         index++;
     }
 
@@ -295,6 +318,8 @@ class ChapinParser {
             return Token.OUTPUT;
         if (isTokenFunction(index))
             return Token.FUNCTION;
+        if (lexemeValue.equals("fun"))
+            return Token.FUN;
         if (current.type == Type.VAR)
             return Token.VARIABLE;
         if (current.type == Type.DELIM)
