@@ -18,7 +18,7 @@ class MetricsUtility {
     }
 
     static boolean isTokenCondition(String token) {
-        return " if while for switch ".contains(" " + token + " ");
+        return " if while for when ".contains(" " + token + " ");
     }
 
     static boolean isTokenAssignment(String token) {

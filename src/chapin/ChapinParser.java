@@ -195,16 +195,15 @@ class ChapinParser {
                 chapinVariables.add(lastVariable);
                 break;
             case IN_CONDITION:
-                lastVariable = findVariable(current.value);
-
+                //lastVariable = findVariable(current.value);
                 // conditional variable initialization
-                /*try {
+                try {
                     lastVariable = findVariable(current.value);
                 } catch (UndefinedVariableExpression e) {
                     System.err.printf("Undefined token '%s' met in condition. New variable assigned.\n", current.value);
                     lastVariable = new ChapinVariable(current.value);
                     chapinVariables.add(lastVariable);
-                }*/
+                }
 
                 lastVariable.isUnused = false;
                 lastVariable.isInCondition = true;
