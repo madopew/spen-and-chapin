@@ -8,7 +8,7 @@ fun main(a : Double) {
     PI += 0.001592
     x = a
     y = a
-    det = readLine()!! + a
+    det = toDouble(readLine()!!) + a
     do {
         det = -det * x * x / ((n + 1)*n)
         n++
